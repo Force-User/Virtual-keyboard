@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+.area {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.textarea {
+  width: 90%;
+  height: 50%;
+  resize: none;
+  margin-top: 25px;
+}
+.keyboard {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+  padding: 25px 5px;
+  background-color: #041f50;
+  transition: 0.5s;
+}
+
+.keyboard--hidden {
+  bottom: -100%;
+}
+
+.keyboard-keys {
+  text-align: center;
+}
+.keyboard-keys__key {
+  width: 6%;
+  max-width: 90px;
+  height: 45px;
+  color: #fff;
+  font-size: 1rem;
+  background-color: #00000070;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-flexbox;
+  justify-content: center;
+  align-content: center;
+  vertical-align: top;
+  margin: 3px;
+  transition: 0.1s;
+}
+.keyboard-keys__key:active {
+  background-color: #fff;
+  color: #000;
+}
+.keyboard-keys__key--wide {
+  font-size: 1.5rem;
+  width: 10%;
+}
+.CapsLock {
+  position: relative;
+}
+.CapsLock:after,
+.CapsLock--active:after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  right: 10px;
+  top: 10px;
+  background-color: #00000027;
+  border-radius: 50%;
+  box-shadow: inset 0 0 1px #00;
+}
+.CapsLock--active::after {
+  background-color: #08bb00;
+  box-shadow: none;
+}
+.space {
+  width: 50%;
+  max-width: 550px;
+  font-size: 1.5rem;
+}
+.key--press {
+  background-color: #fff;
+  color: #000;
+}
