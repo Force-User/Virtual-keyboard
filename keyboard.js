@@ -55,14 +55,16 @@ const Keyboard = {
       return `<i class="material-icons">${iconName}</i>`;
     };
     const fragment = document.createDocumentFragment();
+    
 
     keys.forEach((row) => {
-      row.forEach((key, index) => {
+      const container = document.createElement('div');
+      row.forEach((key) => {
         const keyButton = document.createElement("button");
         keyButton.classList.add("keyboard-keys__key");
         switch (key) {
           case "backspace":
-            keyButton.setAttribute("data-key", `Backspace`);
+            keyButton.dataset.key = `Backspace`;
             keyButton.innerHTML = createIcons("backspace");
             keyButton.classList.add("keyboard-keys__key--wide");
 
@@ -74,7 +76,7 @@ const Keyboard = {
             break;
 
           case "capslock":
-            keyButton.setAttribute("data-key", `CapsLock`);
+            keyButton.dataset.key = `CapsLock`;
             keyButton.classList.add("keyboard-keys__key--wide", "CapsLock");
             keyButton.innerHTML = createIcons("keyboard_capslock");
             keyButton.addEventListener("click", () => {
@@ -85,7 +87,7 @@ const Keyboard = {
             break;
 
           case "enter":
-            keyButton.setAttribute("data-key", `Enter`);
+            keyButton.dataset.key = `Enter`;
             keyButton.innerHTML = createIcons("keyboard_return");
             keyButton.classList.add("keyboard-keys__key--wide");
             keyButton.addEventListener("click", () => {
@@ -103,7 +105,7 @@ const Keyboard = {
             break;
 
           case "space":
-            keyButton.setAttribute("data-key", `Space`);
+            keyButton.dataset.key = `Space`;
             keyButton.innerHTML = createIcons("space_bar");
             keyButton.classList.add("space");
             keyButton.addEventListener("click", () => {
@@ -113,16 +115,16 @@ const Keyboard = {
             break;
           default:
               if(Number(key) >=0) {
-                keyButton.setAttribute("data-key", `Digit${key}`)
+                keyButton.dataset.key = `Digit${key}`;
               } else if(key === ",") {
-                keyButton.setAttribute("data-key", `Comma`);
+                keyButton.dataset.key = `Comma`;
               } else if(key === ".") {
-                keyButton.setAttribute("data-key", `Period`);
+                keyButton.dataset.key = `Period`;
               }
               else if(key === "?") {
-                keyButton.setAttribute("data-key", `Slash`)
+                keyButton.dataset.key = `Slash`;
               } else {
-                keyButton.setAttribute("data-key", `Key${key.toUpperCase()}`)
+                keyButton.dataset.key = `Key${key.toUpperCase()}`;
               }
 
             keyButton.addEventListener("click", () => {
@@ -136,11 +138,9 @@ const Keyboard = {
 
             break;
         }
-        fragment.append(keyButton);
-        if (index === row.length - 1 && row.length > 1) {
-          fragment.append(document.createElement("br"));
-        }
+        container.append(keyButton);
       });
+      fragment.append(container);
     });
     return fragment;
   },
@@ -210,9 +210,13 @@ const Keyboard = {
         `[data-key="${e.code}"]`
       );
 
-      this.elements.currentKey.classList.add("key--press");
-      this.elements.pressButtons.push(this.elements.currentKey);
-      this.addValueForDesctopKeyboard(this.elements.currentKey);
+      if(this.elements.currentKey) {
+        this.elements.currentKey.classList.add("key--press");
+        this.elements.pressButtons.push(this.elements.currentKey);
+        this.addValueForDesctopKeyboard(this.elements.currentKey);
+      }
+
+      
     });
 
     window.addEventListener("keyup", (e) => {
